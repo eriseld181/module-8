@@ -10,7 +10,7 @@ const basicAuthMiddleware = async (req, res, next) => {
         const [email, password] = atob(
             req.headers.authorization.split(" ")[1]
         ).split(":")
-        const user = await UserModel.findByCredentials(email, password)
+        const user = await UserModel.findByEmailAndPassword(email, password)
         if (!user) {
             const error = new Error("Unable to login")
             error.httpStatusCode = 400
