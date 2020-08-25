@@ -1,9 +1,10 @@
 const express = require("express")
+const port = process.env.PORT || 3003
 const cors = require("cors")
 const { join } = require("path")
 const listEndpoints = require("express-list-endpoints")
 const mongoose = require("mongoose")
-const port = process.env.PORT
+
 const server = express()
 const staticFolderPath = join(__dirname, "../public")
 
@@ -15,6 +16,7 @@ server.use(express.json())
 
 server.use("/users", usersRouter)
 
+console.log('The value of PORT is:', process.env.PORT);
 mongoose
     .connect("mongodb://localhost:27017/m8-db", {
         useNewUrlParser: true,
@@ -22,8 +24,8 @@ mongoose
         useCreateIndex: true,
     })
     .then(
-        server.listen(3000, () => {
-            console.log("Running on port", 3000)
+        server.listen(port, () => {
+            console.log("Running on port", port)
         })
     )
     .catch((err) => console.log(err))
